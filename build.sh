@@ -2,12 +2,12 @@
 cd /tmp
 
 PUBLIC_KEY_NAME=$1
-LATEST_NODE_VERSION=$(./nave.sh stable)
+LATEST_NODE_VERSION=$(./vendor/nave/nave.sh stable)
 
 
 # 0. Prerequisites
 
-./nave.sh usemain $LATEST_NODE_VERSION
+./vendor/nave/nave.sh usemain $LATEST_NODE_VERSION
 
 which mocha || npm install -g mocha
 which git || apt-get install git-core
