@@ -7,4 +7,4 @@ stop on shutdown
 
 respawn
 
-exec sudo -u git $(which node) /opt/cian/run.js
+exec sudo -u git $(which node) /opt/cian/app/main
