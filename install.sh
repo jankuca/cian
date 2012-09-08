@@ -49,6 +49,16 @@ sudo -u git /home/git/gitolite/install -ln
 sudo -u git /home/git/.bin/gitolite setup -pk "/home/git/$PUBLIC_KEY_NAME"
 
 
-# 2. pre-receive git hook
+# 2. cian
 
-cp "$CIAN_DIR/hooks/common/pre-receive" /home/git/.gitolite/hooks/common/pre-receive
+INSTALL_DIR="/home/git/.cian"
+
+cp "$CIAN_DIR" "$INSTALL_DIR"
+rm -rf "$CIAN_DIR"
+
+CIAN_DIR="$INSTALL_DIR"
+
+
+# 3. git hooks
+
+cp "$INSTALL_DIR/hooks/common/pre-receive" "/home/git/.gitolite/hooks/common/pre-receive"
