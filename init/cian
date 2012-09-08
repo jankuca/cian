@@ -1,0 +1,10 @@
+
+description "cian - CI, git, deployment"
+author "Jan Kuča <jan@jankuca.com>"
+
+start on (local-filesystems and net-device-up IFACE=eth0)
+stop on shutdown
+
+respawn
+
+exec sudo -u git $(which node) /opt/cian/run.js

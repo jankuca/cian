@@ -1,5 +1,5 @@
 
-CIAN_DIR=$(pwd)
+SOURCE_DIR=$(pwd)
 
 PUBLIC_KEY_NAME="$1"
 LATEST_NODE_VERSION=$(./vendor/nave/nave.sh stable)
@@ -33,7 +33,7 @@ which phantomjs || {
   cd phantomjs
   git checkout 1.6
   ./build.sh
-  cd $CIAN_DIR
+  cd $SOURCE_DIR
 }
 
 
@@ -51,14 +51,17 @@ sudo -u git /home/git/.bin/gitolite setup -pk "/home/git/$PUBLIC_KEY_NAME"
 
 # 2. cian
 
-INSTALL_DIR="/home/git/.cian"
-
-cp "$CIAN_DIR" "$INSTALL_DIR"
-rm -rf "$CIAN_DIR"
-
-CIAN_DIR="$INSTALL_DIR"
+INSTALL_DIR=/opt/cian
+mkdir "$INSTALL_DIR"
+cp "$SOURCE_DIR" "$INSTALL_DIR"
 
 
 # 3. git hooks
 
-cp "$INSTALL_DIR/hooks/common/pre-receive" "/home/git/.gitolite/hooks/common/pre-receive"
+ln -s "$INSTALL_DIR/hooks/common/pre-receive" /home/git/.gitolite/hooks/common/pre-receive
+
+
+# 4. init scripts
+
+ln -s "$INSTALL_DIR/init/cian" /etc/init/cian
+
