@@ -39,4 +39,4 @@ sudo -u git /home/git/.bin/gitolite setup -pk "/home/git/$PUBLIC_KEY_NAME"
 
 # 2. pre-receive git hook
 
-cp "$CIAN_DIR/pre-receive" /home/git/.gitolite/hooks/common/pre-receive
+cp "$CIAN_DIR/hooks/common/pre-receive" /home/git/.gitolite/hooks/common/pre-receive
