@@ -1,11 +1,23 @@
 
 CIAN_DIR=$(pwd)
 
-PUBLIC_KEY_NAME=$1
+PUBLIC_KEY_NAME="$1"
 LATEST_NODE_VERSION=$(./vendor/nave/nave.sh stable)
+
+if [ -z "$PUBLIC_KEY_NAME" ]; then
+  echo "No public key file specified"
+  exit 1
+fi
+if [ ! -f "$PUBLIC_KEY_NAME" ]; then
+  echo "The specified public key file does not exist."
+  exit 1
+fi
 
 
 # 0. Prerequisites
+
+which node || (echo "Node.js is not installed."; exit 1)
+which npm || (echo "NPM is not installed."; exit 1)
 
 ./vendor/nave/nave.sh usemain $LATEST_NODE_VERSION
 
