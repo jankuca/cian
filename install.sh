@@ -190,6 +190,7 @@ sudo -u "$gituser" "/home/$gituser/.bin/gitolite" setup -pk "/home/$gituser/$(ba
 
 # 4. cian
 
+rm -rf "$INSTALL_DIR"
 mkdir -p "$INSTALL_DIR" || {
   echo -e "\n\033[1;31mFailed to create $INSTALL_DIR\033[0m"
   exit 1
