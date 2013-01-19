@@ -1,0 +1,11 @@
+{
+  "name": "cian",
+  "description": "CI, git, deployment solution",
+  "version": "0.1.0",
+  "dependencies": {
+    "async": "0.1.x",
+    "darkside": "1.1.x",
+    "moment": "1.x.x",
+    "pyyaml": "0.0.x"
+  }
+}

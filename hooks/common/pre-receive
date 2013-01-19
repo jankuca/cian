@@ -1,3 +1,13 @@
 #!/bin/sh
 
+APP=$(basename "$GIT_DIR")
+APP=${APP%.git}
+if [ "$APP" = "gitolite-admin" ]; then
+  exit 0
+fi
+
+read OLD_REV_SHA1 NEW_REV_SHA1 REF
+BRANCH=${REF##*/}
+
 # Pass it through the pipeline, yo!
+cian receive --app "$APP" --branch "$BRANCH" --rev "$NEW_REV_SHA1"
