@@ -1,0 +1,44 @@
+
+<ul class="breadcrumbs">
+  <li>/ <a href="<%= @link_to 'app:index' %>">apps</a>
+</ul>
+
+<div class="header">
+  <h1>Apps</h1>
+  <div class="actions">
+    <a class="button" href="<%= @link_to 'app:new' %>">new app</a>
+  </div>
+</div>
+
+<table id="app-table">
+  <thead>
+    <tr>
+      <th class="title sort">Name
+  <tbody>
+    <% for app in @apps: %>
+    <tr>
+      <td class="title"><a href="<%= @link_to 'app:app', app: app %>"><%= app %></a>
+    <% end %>
+</table>
+
+
+<script>
+var link_to_app_app = "<%= @link_to 'app:app', app: '%s' %>";
+
+socket.of('/apps').on('apps', function (apps) {
+  var app_table_body = document.getElementById('app-table').tBodies[0];
+
+  var rows = document.createDocumentFragment();
+  apps.forEach(function (app) {
+    var row = document.createElement('tr');
+    rows.appendChild(row);
+
+    var cell = document.createElement('td');
+    cell.innerHTML = link_to_app_app.replace('%s', app);
+    row.appendChild(cell);
+  });
+
+  app_table_body.innerHTML = '';
+  app_table_body.appendChild(rows);
+});
+</script>

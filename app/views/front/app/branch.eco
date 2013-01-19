@@ -1,0 +1,84 @@
+
+<ul class="breadcrumbs">
+  <li>/ <a href="<%= @link_to 'app:index' %>">apps</a>
+  <li>/ <a href="<%= @link_to 'app:app', app: @app %>"><%= @app %></a>
+  <li>/ <strong><%= @branch %></strong>
+  <li class="rev">revision: <strong><code><%= @rev %></code></strong>,
+    <a href="<%= @link_to 'app:revisions', app: @app, branch: @branch %>">select</a><br>
+    <small><a href="<%= @link_to 'app:branch', app: @app, branch: @branch, rev: '.passing' %>">
+      a newer passing revision is available
+    </a></small>
+</ul>
+
+<div class="control">
+  <p><%= @app %>/<strong><%= @branch %></strong>
+  <p>
+    <a class="button" href="<%= @link_to 'app:start-branch', app: @app, branch: @branch %>">Start</a>
+    <a class="button" href="<%= @link_to 'app:stop-branch', app: @app, branch: @branch %>">Stop</a>
+    <a class="button" href="<%= @link_to 'app:restart-branch', app: @app, branch: @branch %>">Restart</a>
+</div>
+
+<h1>Processes</h1>
+
+<table cellspacing="0">
+  <thead>
+    <tr>
+      <th class="title sort">Name
+      <th>State
+      <th class="date">Uptime
+      <th class="actions">
+  <tbody>
+    <% for process in @processes: %>
+    <tr>
+      <td class="title">
+        <% if process.state isnt @job_states.UNREGISTERED: %>
+        <a href="<%= @link_to 'app:process', app: @app, branch: @branch, process: process.name %>" title="$ <%= process.cmd %>"><%= process.name %></a>
+        <% else: %>
+        <small title="$ <%= process.cmd %>"><%= process.name %></small>
+        <% end %>
+      <td><%= @process_state_texts[process.state] %>
+      <td class="date">
+        <% if process.uptime: %>
+        <%= @moment.humanizeDuration(process.uptime) %>
+        <% else: %>
+        &ndash;
+        <% end %>
+      <td class="actions">
+        <% if process.state isnt @job_states.UNREGISTERED: %>
+        <a class="button" href="<%= @link_to 'app:start-process', app: @app, branch: @branch, process: process.name %>"<% if process.state is @job_states.RUNNING: %> disabled<% end %>>Start</a>
+        <a class="button" href="<%= @link_to 'app:stop-process', app: @app, branch: @branch, process: process.name %>"<% if process.state is @job_states.STOPPED: %> disabled<% end %>>Stop</a>
+        <a class="button" href="<%= @link_to 'app:restart-process', app: @app, branch: @branch, process: process.name %>"<% if process.state is @job_states.STOPPED: %> disabled<% end %>>Restart</a>
+        <% end %>
+    <% end %>
+</table>
+
+
+<div class="row">
+  <div class="third">
+    <h1>Tests</h1>
+
+    <p class="ok">unit tests
+    <p class="error">integration tests
+    <p>coverage:
+      <a href="<%= @link_to 'app:branch-test-coverage', app: @app, branch: @branch, rev: @rev %>">95%</a>
+  </div>
+
+  <div class="two-thirds">
+    <h1>Latest Commits</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID
+          <th class="title">Message
+          <th class="date sort-desc">Created
+      <tbody>
+        <% for commit in @commits: %>
+        <tr>
+          <td><code><%= commit.sha1 %></code>
+          <td class="title"><%= commit.message %>
+          <td class="date"><%= @moment(commit.created_at).fromNow() %>
+        <% end %>
+    </table>
+  </div>
+</div>
+

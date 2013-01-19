@@ -1,0 +1,26 @@
+
+<ul class="breadcrumbs">
+  <li>/ <a href="<%= @link_to 'app:index' %>">apps</a>
+  <li>/ <a href="<%= @link_to 'app:app', app: @app %>"><%= @app %></a>
+  <li>/ <a href="<%= @link_to 'app:branch', app: @app, branch: @branch %>"><%= @branch %></strong>
+</ul>
+
+<div class="header">
+  <h1>Revisions</h1>
+</div>
+
+<table id="app-table">
+  <thead>
+    <tr>
+      <th>ID
+      <th class="title">Message
+      <th class="date">Created
+  <tbody>
+    <% for rev in @revisions: %>
+    <tr>
+      <td>
+        <a href="<%= @link_to 'app:branch', app: @app, branch: @branch, rev: rev.id %>"><%= rev.id %></a>
+      <td class="title"><%= rev.message %>
+      <td><%= @moment(rev.created_at).fromNow() %>
+    <% end %>
+</table>

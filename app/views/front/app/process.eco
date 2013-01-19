@@ -1,0 +1,38 @@
+
+<ul class="breadcrumbs">
+  <li>/ <a href="<%= @link_to 'app:index' %>">apps</a>
+  <li>/ <a href="<%= @link_to 'app:app', app: @app %>"><%= @app %></a>
+  <li>/ <a href="<%= @link_to 'app:branch', app: @app, branch: @branch %>"><%= @branch %></a>
+  <li>/ <strong><%= @process %></strong>
+</ul>
+
+<div class="control">
+  <p><%= @app %>/<strong><%= @branch %>/<strong><%= @process %></strong></strong>
+  <p>
+    <a class="button" href="<%= @link_to 'app:start-process', app: @app, branch: @branch, process: @process %>">Start</a>
+    <a class="button" href="<%= @link_to 'app:stop-process', app: @app, branch: @branch, process: @process %>">Stop</a>
+    <a class="button" href="<%= @link_to 'app:restart-process', app: @app, branch: @branch, process: @process %>">Restart</a>
+</div>
+
+<h1>Log</h1>
+
+<pre class="log" id="log">
+<%= @log %>
+</pre>
+
+<script>
+window.addEventListener('load', function () {
+  var log = document.getElementById('log');
+  log.scrollTop = log.scrollHeight;
+  log.onclick = function () {
+    location.hash = (location.hash !== '#log') ? '#log' : '';
+  };
+}, false);
+
+socket.of('/apps/<%= @app %>/<%= @branch %>/<%= @process %>').on('log', function (data) {
+  var log = document.getElementById('log');
+  var text = document.createTextNode(data);
+  log.appendChild(text);
+  log.scrollTop = log.scrollHeight;
+});
+</script>

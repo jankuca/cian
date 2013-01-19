@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<title>cian</title>
+
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no">
+
+<link rel="stylesheet" href="/css/app.css">
+
+<body>
+
+<ul class="breadcrumbs">
+  <li>/ <a href="<%= @link_to 'app:index' %>">apps</a>
+</ul>
+
+<h1>Error</h1>
+<p class="message error"><%= @message %>
+
+<% if @stack.length: %>
+<ul class="stack">
+  <% for line in @stack: %>
+  <li><%= line %>
+  <% end %>
+</ul>
+<% end %>
+
+<footer>
+  <p><a href="http://github.com/jankuca/cian">cian.</a> <small>v0.1.0</small>
+  <p class="time"><small><%= @moment().format('DD.MM.YYYY HH:mm:ss Z') %></small>
+</footer>

@@ -1,0 +1,3 @@
+apps
+  @ = include 'services/AppManager'
+  dir = '/Users/Jan/dev/cian/apps'

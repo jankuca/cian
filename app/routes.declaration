@@ -1,0 +1,12 @@
+*
+  * = static 'public'
+
+  / = 'front:app:index'
+  /apps/new = 'front:app:new'
+  /apps/:app = 'front:app:app'
+  /apps/:app/:branch = 'front:app:branch'
+  /apps/:app/:branch/revisions = 'front:app:revisions'
+  /apps/:app/:branch/:process = 'front:app:process'
+
+  CREATE /apps/:app = 'api:app:create'
+  RECEIVE /apps/:app/:branch/:rev = 'api:app:receive'
